@@ -21,7 +21,7 @@
 * **SSH version 2:** RSA asymmetric encryption algorithm ka use karta hai. Yeh poore terminal session ko encrypt kar deta hai, jisse passwords aur commands network par mukammal secure rehti hain.
 
 ---
-
+```text
 ## 🛠️ Step-by-Step Configuration Script (Office_Switch)
 
 ### Step 1: Set the switch hostname
