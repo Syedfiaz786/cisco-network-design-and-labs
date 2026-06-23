@@ -2,24 +2,23 @@
 ## 🧠 Core Networking Concepts (Understand the Logic)
 
 ### Concept 1: Why We Change the Hostname & Disable DNS Lookup
-* **Hostname:** Default switches par `Switch>` likha aata hai, jisse bade networks mein pehchan mushkil hoti hai. Hostname badalne se device ki actual location aur identity ka pata chalta hai.
-* **No IP Domain-Lookup:** CLI par jab koi command galat type ho jaye, to switch use internet par dhoondne lagta hai aur switch 1-2 minute ke liye bilkul hang (lockout) ho jata hai. Is command se yeh hang hone wala masla hamesha ke liye khatam ho jata hai.
+* **Hostname:** Default switches display `Switch>`, which makes identification difficult in large networks. Changing the hostname reveals the actual location and identity of the device.
+* **No IP Domain-Lookup:** When a command is mistyped on the CLI, the switch starts searching for it on the internet/DNS, causing the switch to completely hang (lockout) for 1–2 minutes. This command eliminates this hanging issue permanently.
 
 ### Concept 2: Security Boundaries (Enable Secret & Console Password)
-* **Enable Secret:** Yeh switch ke privileged mode ko lock karne ke liye MD5/SHA algorithm ke zariye encrypted password lagata hai taake koi aam user configurations na badal sake.
-* **Console Password with Local Login:** Yeh physical terminal security hai. Jab koi direct console cable lagaye ga, to switch pehle username aur password maangega.
+* **Enable Secret:** This applies an encrypted password using MD5/SHA algorithms to lock the switch's privileged mode, ensuring regular users cannot modify configurations.
+* **Console Password with Local Login:** This enforces physical terminal security. When someone directly connects a console cable, the switch will first demand a username and password.
 
 ### Concept 3: The Purpose of a Banner (MOTD)
-* **Message of the Day (MOTD):** Yeh device open hote hi sab se pehle screen par warning show karta hai. Legal taur par yeh zaroori hota hai taake kisi bhi unauthorized hacker ko warning di ja sakay ke yeh ek private property network hai.
+* **Message of the Day (MOTD):** This displays a warning on the screen immediately when the device session opens. Legally, this is necessary to warn any unauthorized hacker that this is a private property network.
 
 ### Concept 4: Layer 2 Management SVI (VLAN 99 vs VLAN 1)
-* **Why not VLAN 1?** Out-of-the-box switch ke saare ports VLAN 1 mein hote hain. Agar management IP bhi isi par ho, to koi bhi laptop connect karke switch ka system open kar sakta hai.
-* **VLAN 99 (Isolated Management):** Hum ne management ke liye ek alag kamra (VLAN 99) banaya. Jab tak kisi specific port (jaise Fa0/24) ko manually VLAN 99 mein nahi dala jaye ga aur wahan physical terminal signal nahi milega, tab tak management rasta (SVI Protocol) up nahi hoga.
+* **Why not VLAN 1?** Out-of-the-box, all switch ports belong to VLAN 1. If the management IP is also on it, anyone connecting a laptop can open the switch's management system.
+* **VLAN 99 (Isolated Management):** We created a separate room (VLAN 99) for management. Until a specific port (like Fa0/24) is manually assigned to VLAN 99 and receives a physical terminal signal, the management path (SVI Protocol) will not come up.
 
 ### Concept 5: Why SSHv2 over Telnet?
-* **Telnet:** Iska data clear-text (sada lafzon) mein jata hai jise packet sniffers (jaise Wireshark) se asani se chori kiya ja sakta hai.
-* **SSH version 2:** RSA asymmetric encryption algorithm ka use karta hai. Yeh poore terminal session ko encrypt kar deta hai, jisse passwords aur commands network par mukammal secure rehti hain.
-
+* **Telnet:** Its data travels in clear-text (plain words), which can easily be stolen using packet sniffers (like Wireshark).
+* **SSH version 2:** It utilizes the RSA asymmetric encryption algorithm. This encrypts the entire terminal session, keeping passwords and commands completely secure over the network.
 ---
 ```text
 ## 🛠️ Step-by-Step Configuration Script (Office_Switch)
